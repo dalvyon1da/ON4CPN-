@@ -41,21 +41,14 @@
             display: block !important;
         }
 
-        /* Bloc propagation */
-        .prop-box {
+        /* Style des blocs internes */
+        .module-box {
             background:#0d0d0d;
             padding:20px;
             border-radius:10px;
             margin-top:20px;
             box-shadow:0 0 10px rgba(0,255,150,0.2);
-            color:white;
-            font-size:22px;
-        }
-
-        .prop-value {
-            font-size:32px;
-            color:#00ff99;
-            font-weight:bold;
+            text-align:center;
         }
     </style>
 </head>
@@ -88,35 +81,35 @@
     <div id="propagation" class="tab-content">
         <h2 style="color:#00ff99;">Propagation HF</h2>
 
-        <div class="prop-box">
-            <p>SFI : <span id="sfi" class="prop-value">...</span></p>
-            <p>K-index : <span id="kindex" class="prop-value">...</span></p>
-            <p>A-index : <span id="aindex" class="prop-value">...</span></p>
+        <div class="module-box">
+            <h3 style="color:#00ff99; margin-bottom:15px;">HF Propagation – DXView</h3>
+
+            <iframe 
+                src="https://hf.dxview.org/"
+                style="width:100%; height:900px; border:none; border-radius:10px;"
+            ></iframe>
         </div>
     </div>
 
     <!-- QSO -->
     <div id="qso" class="tab-content">
         <h2 style="color:#00ff99;">Compteur QSO Live</h2>
-        <p style="color:white;">Module QSO à venir.</p>
+        <div class="module-box">
+            <p style="color:white;">Module QSO à venir.</p>
+        </div>
     </div>
 
     <!-- HEURE -->
     <div id="heure" class="tab-content">
         <h2 style="color:#00ff99;">Heure locale + UTC</h2>
-        <p style="color:white;">Module horloge à venir.</p>
+        <div class="module-box">
+            <p style="color:white;">Module horloge à venir.</p>
+        </div>
     </div>
 
     <!-- DX CLUBLOG -->
     <div id="dx" class="tab-content">
-        <div style="
-            background:#0d0d0d;
-            padding:20px;
-            border-radius:10px;
-            text-align:center;
-            margin-top:20px;
-            box-shadow:0 0 10px rgba(0,255,150,0.2);
-        ">
+        <div class="module-box">
             <h2 style="color:#00ff99; margin-bottom:15px; font-weight:600;">
                 Club Log – DX Report
             </h2>
@@ -130,11 +123,10 @@
 
 </section>
 
-<!-- SCRIPT PRINCIPAL -->
+<!-- SCRIPT POUR LES ONGLETS -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-    /* --- Gestion des onglets --- */
     function showTab(id) {
         document.querySelectorAll('.tab-content').forEach(div => {
             div.classList.remove('active');
@@ -145,32 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
     window.showTab = showTab;
 
     /* Onglet affiché par défaut */
-    showTab('dx');
-
-    /* --- MODULE PROPAGATION HF --- */
-    async function loadPropagation() {
-        try {
-            const url = "https://www.hamqsl.com/solarxml.php";
-            const response = await fetch(url);
-            const text = await response.text();
-
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(text, "text/xml");
-
-            const sfi = xml.getElementsByTagName("solarflux")[0].textContent;
-            const k = xml.getElementsByTagName("kindex")[0].textContent;
-            const a = xml.getElementsByTagName("aindex")[0].textContent;
-
-            document.getElementById("sfi").textContent = sfi;
-            document.getElementById("kindex").textContent = k;
-            document.getElementById("aindex").textContent = a;
-
-        } catch (err) {
-            console.error("Erreur propagation :", err);
-        }
-    }
-
-    loadPropagation();
+    showTab('propagation');
 });
 </script>
 
