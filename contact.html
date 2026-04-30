@@ -20,15 +20,49 @@
 
 <section class="content">
     <h2>Contact</h2>
-    <P> Adresse : 
-        Rue de Loverval 161
+
+    <p>
+        <strong>Adresse :</strong><br>
+        Rue de Loverval 161<br>
         6200 Châtelet
-    </P>     
-    <p> Email du club :
+    </p>
+
+    <p>
+        <strong>Email du club :</strong><br>
         ON4CPN@HOTMAIL.COM
     </p>
+
+    <!-- Bloc adresse + carte -->
+    <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start; margin-top:20px;">
+
+        <!-- Adresse + bouton itinéraire -->
+        <div style="min-width:250px;">
+            <h3>Nous trouver</h3>
+            <p>
+                Rue de Loverval 161<br>
+                6200 Châtelet
+            </p>
+
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Rue+de+Loverval+161+6200+Châtelet"
+               target="_blank"
+               style="display:inline-block;padding:10px 15px;background:#4285F4;color:white;border-radius:6px;text-decoration:none;font-weight:600;">
+               ➜ Obtenir l’itinéraire
+            </a>
+        </div>
+
+        <!-- Carte Google sans API -->
+        <iframe
+            src="https://www.google.com/maps?q=Rue+de+Loverval+161+6200+Châtelet&output=embed"
+            width="350"
+            height="250"
+            style="border:0;border-radius:8px;"
+            loading="lazy"
+            allowfullscreen>
+        </iframe>
+
+    </div>
+
 </section>
 
 </body>
 </html>
-
