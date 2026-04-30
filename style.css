@@ -3,14 +3,6 @@
     color-scheme: light dark;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    transition: background 0.4s, color 0.4s;
-}
-
 @media (prefers-color-scheme: dark) {
     :root {
         --bg: #111;
@@ -29,6 +21,16 @@ body {
         --header: #222;
         --accent: #00aa55;
     }
+}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.4s, color 0.4s;
+    font-size: 20px;
 }
 
 /* HEADER FIXE */
@@ -63,18 +65,50 @@ nav a.active {
     color: var(--accent);
 }
 
-/* HERO */
+/* HERO AVEC BANNIÈRE */
 .hero {
-    padding: 150px 20px 80px;
+    padding: 160px 20px 120px;
     text-align: center;
-    background: linear-gradient(135deg, #0a0a0a, #222);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
+    position: relative;
 }
 
+/* VOILE SOMBRE POUR LIRE LE TEXTE */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(2px);
+}
+
+.hero * {
+    position: relative;
+    z-index: 2;
+}
+
+/* TITRES DU HERO */
+.hero h1 {
+    font-size: 80px;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 28px;
+    margin-top: 10px;
+}
+
+/* BOUTON */
 .btn {
     display: inline-block;
-    margin-top: 20px;
-    padding: 12px 25px;
+    margin-top: 25px;
+    padding: 14px 30px;
     background: var(--accent);
     color: black;
     border-radius: 6px;
@@ -93,6 +127,15 @@ nav a.active {
     padding: 40px 20px;
     max-width: 900px;
     margin: auto;
+}
+
+.content h2 {
+    font-size: 40px;
+}
+
+.content p {
+    font-size: 22px;
+    line-height: 1.7;
 }
 
 /* CARTES */
@@ -122,8 +165,4 @@ nav a.active {
 @keyframes fade {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
-}
-.content p {
-    font-size: 22px;
-    line-height: 1.7;
 }
