@@ -34,7 +34,7 @@
         /* Zone de contenu dynamique */
         .tab-content {
             margin-top: 30px;
-            display: none !important; /* sécurité */
+            display: none !important;
         }
 
         /* Quand actif */
@@ -59,7 +59,6 @@
 
 <section class="content">
     <h2>Dashboard Live</h2>
-<p style="color:red; font-size:30px;">TEST</p>
 
     <!-- LES 4 BLOCS INTERACTIFS -->
     <div class="dashboard-grid">
@@ -87,39 +86,48 @@
         <p style="color:white;">Module horloge à venir.</p>
     </div>
 
-<!-- CONTENU : DX TIMELINE -->
-<div id="dx" class="tab-content">
-    <div style="
-        background:#0d0d0d;
-        padding:20px;
-        border-radius:10px;
-        text-align:center;
-        margin-top:20px;
-        box-shadow:0 0 10px rgba(0,255,150,0.2);
-    ">
-        <h2 style="color:#00ff99; margin-bottom:15px; font-weight:600;">
-            Activations DX en cours
-        </h2>
+    <!-- CONTENU : DX TIMELINE -->
+    <div id="dx" class="tab-content">
+        <div style="
+            background:#0d0d0d;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+            margin-top:20px;
+            box-shadow:0 0 10px rgba(0,255,150,0.2);
+        ">
+            <h2 style="color:#00ff99; margin-bottom:15px; font-weight:600;">
+                Activations DX en cours
+            </h2>
 
-        <img 
-            src="https://www.hamradiotimeline.com/timeline/dxw_timeline_1_1.php"
-            alt="DX Timeline"
-            style="max-width:100%; border-radius:10px;"
-        >
+            <img 
+                src="https://www.hamradiotimeline.com/timeline/dxw_timeline_1_1.php"
+                alt="DX Timeline"
+                style="max-width:100%; border-radius:10px;"
+            >
+        </div>
     </div>
-</div>
-
 
 </section>
 
-</script>
 <!-- SCRIPT POUR AFFICHER LES MODULES -->
 <script>
-function showTab(id) {
-    document.querySelectorAll('.tab-content').forEach(div => {
-        div.classList.remove('active');
-    });
-    document.getElementById(id).classList.add('active');
-}
+document.addEventListener("DOMContentLoaded", function() {
+
+    function showTab(id) {
+        document.querySelectorAll('.tab-content').forEach(div => {
+            div.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+    }
+
+    // rendre la fonction accessible aux onclick=""
+    window.showTab = showTab;
+
+    // module affiché par défaut
+    showTab('dx');
+});
+</script>
+
 </body>
 </html>
