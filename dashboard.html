@@ -41,6 +41,23 @@
         .tab-content.active {
             display: block !important;
         }
+
+        /* Style propagation */
+        .prop-box {
+            background:#0d0d0d;
+            padding:20px;
+            border-radius:10px;
+            margin-top:20px;
+            box-shadow:0 0 10px rgba(0,255,150,0.2);
+            color:white;
+            font-size:22px;
+        }
+
+        .prop-value {
+            font-size:32px;
+            color:#00ff99;
+            font-weight:bold;
+        }
     </style>
 </head>
 
@@ -71,7 +88,12 @@
     <!-- CONTENU : PROPAGATION -->
     <div id="propagation" class="tab-content">
         <h2 style="color:#00ff99;">Propagation HF</h2>
-        <p style="color:white;">Module propagation à venir.</p>
+
+        <div class="prop-box">
+            <p>SFI : <span id="sfi" class="prop-value">...</span></p>
+            <p>K-index : <span id="kindex" class="prop-value">...</span></p>
+            <p>A-index : <span id="aindex" class="prop-value">...</span></p>
+        </div>
     </div>
 
     <!-- CONTENU : QSO -->
@@ -109,7 +131,7 @@
 
 </section>
 
-<!-- SCRIPT POUR AFFICHER LES MODULES -->
+<!-- SCRIPT POUR AFFICHER LES MODULES + PROPAGATION -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -120,11 +142,37 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById(id).classList.add('active');
     }
 
-    // rendre la fonction accessible aux onclick=""
     window.showTab = showTab;
 
     // module affiché par défaut
     showTab('dx');
+
+    // --- MODULE PROPAGATION ---
+    async function loadPropagation() {
+        try {
+            // SFI
+            const sfiData = await fetch("https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json").then(r => r.json());
+            const sfi = sfiData[sfiData.length - 1].f10_7;
+
+            // K-index
+            const kData = await fetch("https://services.swpc.noaa.gov/json/planetary_k_index_1m.json").then(r => r.json());
+            const k = kData[kData.length - 1].kp_index;
+
+            // A-index
+            const aData = await fetch("https://services.swpc.noaa.gov/json/geospace/ap_index.json").then(r => r.json());
+            const a = aData[aData.length - 1].ap;
+
+            // Affichage
+            document.getElementById("sfi").textContent = sfi;
+            document.getElementById("kindex").textContent = k;
+            document.getElementById("aindex").textContent = a;
+
+        } catch (err) {
+            console.error("Erreur propagation :", err);
+        }
+    }
+
+    loadPropagation();
 });
 </script>
 
