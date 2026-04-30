@@ -37,12 +37,11 @@
             display: none !important;
         }
 
-        /* Quand actif */
         .tab-content.active {
             display: block !important;
         }
 
-        /* Style propagation */
+        /* Bloc propagation */
         .prop-box {
             background:#0d0d0d;
             padding:20px;
@@ -85,7 +84,7 @@
         <div class="dash-item" onclick="showTab('dx')">Activations en cours</div>
     </div>
 
-    <!-- CONTENU : PROPAGATION -->
+    <!-- PROPAGATION HF -->
     <div id="propagation" class="tab-content">
         <h2 style="color:#00ff99;">Propagation HF</h2>
 
@@ -96,19 +95,19 @@
         </div>
     </div>
 
-    <!-- CONTENU : QSO -->
+    <!-- QSO -->
     <div id="qso" class="tab-content">
         <h2 style="color:#00ff99;">Compteur QSO Live</h2>
         <p style="color:white;">Module QSO à venir.</p>
     </div>
 
-    <!-- CONTENU : HEURE -->
+    <!-- HEURE -->
     <div id="heure" class="tab-content">
         <h2 style="color:#00ff99;">Heure locale + UTC</h2>
         <p style="color:white;">Module horloge à venir.</p>
     </div>
 
-    <!-- CONTENU : DX CLUBLOG -->
+    <!-- DX CLUBLOG -->
     <div id="dx" class="tab-content">
         <div style="
             background:#0d0d0d;
@@ -131,10 +130,11 @@
 
 </section>
 
-<!-- SCRIPT POUR AFFICHER LES MODULES + PROPAGATION -->
+<!-- SCRIPT PRINCIPAL -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
+    /* --- Gestion des onglets --- */
     function showTab(id) {
         document.querySelectorAll('.tab-content').forEach(div => {
             div.classList.remove('active');
@@ -144,25 +144,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
     window.showTab = showTab;
 
-    // module affiché par défaut
+    /* Onglet affiché par défaut */
     showTab('dx');
 
-    // --- MODULE PROPAGATION ---
+    /* --- MODULE PROPAGATION HF --- */
     async function loadPropagation() {
         try {
-            // SFI
-            const sfiData = await fetch("https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json").then(r => r.json());
-            const sfi = sfiData[sfiData.length - 1].f10_7;
+            const url = "https://www.hamqsl.com/solarxml.php";
+            const response = await fetch(url);
+            const text = await response.text();
 
-            // K-index
-            const kData = await fetch("https://services.swpc.noaa.gov/json/planetary_k_index_1m.json").then(r => r.json());
-            const k = kData[kData.length - 1].kp_index;
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(text, "text/xml");
 
-            // A-index
-            const aData = await fetch("https://services.swpc.noaa.gov/json/geospace/ap_index.json").then(r => r.json());
-            const a = aData[aData.length - 1].ap;
+            const sfi = xml.getElementsByTagName("solarflux")[0].textContent;
+            const k = xml.getElementsByTagName("kindex")[0].textContent;
+            const a = xml.getElementsByTagName("aindex")[0].textContent;
 
-            // Affichage
             document.getElementById("sfi").textContent = sfi;
             document.getElementById("kindex").textContent = k;
             document.getElementById("aindex").textContent = a;
