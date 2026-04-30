@@ -166,3 +166,46 @@ nav a.active {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+/* ICONES RESEAUX SOCIAUX */
+.social-links {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 14px;
+}
+
+.social-icon span {
+    display: none; /* On masque le texte, on garde le rond */
+}
+
+/* Facebook bleu */
+.facebook {
+    background: #1877f2;
+}
+
+/* QRZ jaune */
+.qrz {
+    background: #f2c200;
+    color: black;
+}
+
+/* Effet moderne au survol */
+.social-icon:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 15px #0008;
+}
+
