@@ -34,7 +34,12 @@
         /* Zone de contenu dynamique */
         .tab-content {
             margin-top: 30px;
-            display: none;
+            display: none !important; /* sécurité */
+        }
+
+        /* Quand actif */
+        .tab-content.active {
+            display: block !important;
         }
     </style>
 </head>
@@ -109,9 +114,9 @@
 <script>
 function showTab(id) {
     document.querySelectorAll('.tab-content').forEach(div => {
-        div.style.display = 'none';
+        div.classList.remove('active');
     });
-    document.getElementById(id).style.display = 'block';
+    document.getElementById(id).classList.add('active');
 }
 </script>
 
